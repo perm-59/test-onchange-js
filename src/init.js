@@ -53,9 +53,14 @@ export default () => {
         if (!rows.some((row) => row.url === addData.value)) {
           const max = +(getMaxValue(rows))+ 1;
           const newAddress = {id: max, url: addData.value};
-          const elem = document.getElementById('newData');
-          elem.innerHTML = ''
+          const elems = document.getElementById('newData');
+          
           watchedObject.rows.push(newAddress);
+          /** чтоб не показывалось сообщение валидации */
+          setTimeout(() => {
+            elems.value = ''
+          })
+          
         }
         
       }
