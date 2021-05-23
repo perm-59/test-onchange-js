@@ -2,8 +2,6 @@
 
 
 import onChange, { target } from 'on-change';
-import Example from './Example.js';
-
 
 export default () => {
   let data;
@@ -16,10 +14,7 @@ export default () => {
 
     
     if (request.readyState === 4 && request.status === 200) {
-
-    
       data = request.responseText;
-      
     }
     if (data) {
       rows = JSON.parse(data)
@@ -28,19 +23,18 @@ export default () => {
       rows = JSON.parse(data);
       watchedObject = onChange( rows, (path, value) =>  changeData(path, value));
       
-      watchedObject.forEach(element => {
+      rows.forEach(element => {
         const elem = document.createElement('li');
         elem.innerHTML = element.url;
         ulElem.append(elem)
       });
+      watchedObject.rows = rows;
     }
   });
 
   const changeData = (path, value) =>  {
-    console.log(path);
-    console.log(value);
-    console.log(123);
     const ulElem = document.querySelector('#parent');
+    ulElem.innerHTML = '';
     value.forEach(element => {
       const elem = document.createElement('li');
       elem.innerHTML = element.url;
@@ -51,20 +45,19 @@ export default () => {
   
   
   request.send();
-  const element = document.getElementById('point');
-  const obj = new Example(element);
   
-
   addEventListener('click', (event) => {
     if (event.target.type === "submit") {
       const addData = document.getElementById('newData');
-      if (addData && addData.value && addData.value.trim().length > 0) {
-        const max = +(getMaxValue(rows))+ 1;
-        const newAddress = {id: max, url: addData.value};
-        rows.push(newAddress);
-        const elem = document.getElementById('newData');
-        elem.innerHTML = ''
-        watchedObject.rows = rows;
+      if (addData && addData.value && addData.value.trim().length > 0 && addData.validity.valid) {
+        if (!rows.some((row) => row.url === addData.value)) {
+          const max = +(getMaxValue(rows))+ 1;
+          const newAddress = {id: max, url: addData.value};
+          const elem = document.getElementById('newData');
+          elem.innerHTML = ''
+          watchedObject.rows.push(newAddress);
+        }
+        
       }
     }
   })
