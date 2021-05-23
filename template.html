@@ -4,6 +4,18 @@
     <title>Webpack Package</title>
   </head>
   <body>
-    <div id="point"></div>
+    <!-- <div id="point"></div> -->
+    <div class="block-form">
+      <form action="#">
+        <label for="block-form__url">URL</label>
+        <input type="text" class="block-form__url" id="newData" required pattern =[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?>
+        <button click="submit()">Добавить</button>
+      </form>
+    </div>
+    <div id="result">
+      <ul id="parent">
+
+      </ul>
+    </div>
   </body>
 </html>
